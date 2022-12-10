@@ -49,17 +49,20 @@ else:
     raise BinanceException(status_code=r.status_code, data=r.json())
 
 
-# PATH = '/api/v3/exchangeInfo'
+def all_assets():
+    PATH = '/api/v3/exchangeInfo'
 
-# url = urljoin(BASE_URL, PATH)
-# r = requests.get(url, headers=headers, params=params)
-# if r.status_code == 200:
-#     t = r.json()
-#     for d in t["symbols"] :
-#         print(d["symbol"])
+    url = urljoin(BASE_URL, PATH)
+    r = requests.get(url, headers=headers, params=params)
+    if r.status_code == 200:
+        t = r.json()
+        for d in t["symbols"] :
+            print(d["symbol"])
 
-# else:
-#     raise BinanceException(status_code=r.status_code, data=r.json())
+    else:
+        raise BinanceException(status_code=r.status_code, data=r.json())
+
+#all_assets()
 
 def getDepth(direction, pair):
     PATH = '/api/v3/depth'
@@ -72,13 +75,64 @@ def getDepth(direction, pair):
     r = requests.get(url, headers=headers, params=params)
     if r.status_code == 200:
         t = r.json()
-        for d in t[direction] :
-            print(d)
+        # for d in t[direction] :
+        #     print(type(t[direction]))
+        #     # print(d[0])
+        #     # print(type(d[0]))
+        print(t[direction][0])
 
     else:
         raise BinanceException(status_code=r.status_code, data=r.json())
 
-getDepth('bids', 'BTCUSDT')
+#getDepth('asks', 'BTCUSDT')
+
+def orderBook(pair):
+    PATH = '/api/v3/depth'
+
+    params = {
+        'symbol': pair
+    }
+
+    url = urljoin(BASE_URL, PATH)
+    r = requests.get(url, headers=headers, params=params)
+    if r.status_code == 200:
+        t = r.json()
+        print(t)
+        # for d in t[direction] :
+        #     print(type(t[direction]))
+        #     # print(d[0])
+        #     # print(type(d[0]))
+
+
+    else:
+        raise BinanceException(status_code=r.status_code, data=r.json())
+
+#orderBook('BTCUSDT')
+
+
+def getCandle(pair, interval):
+    PATH = '/api/v3/uiKlines'
+
+    params = {
+        'symbol': pair,
+        'interval': interval
+    }
+
+    url = urljoin(BASE_URL, PATH)
+    r = requests.get(url, headers=headers, params=params)
+    if r.status_code == 200:
+        t = r.json()
+        print(t)
+        # for d in t[direction] :
+        #     print(type(t[direction]))
+        #     # print(d[0])
+        #     # print(type(d[0]))
+
+
+    else:
+        raise BinanceException(status_code=r.status_code, data=r.json())
+
+#getCandle('BTCUSDT', '5m')
 
 # PATH = '/api/v3/depth'
 
