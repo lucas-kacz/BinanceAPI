@@ -25,19 +25,19 @@ for row in cur.execute('''SELECT * FROM my_table'''):
     print(row)
 
 
-# def create_connection(database_path):
-#     """ create a database connection to the SQLite database
-#         specified by db_file
-#     :param db_file: database file
-#     :return: Connection object or None
-#     """
-#     conn = None
-#     try:
-#         conn = sqlite3.connect(database_path) 
-#     except Error as e:
-#         print(e)
+def create_connection(database_path):
+    """ create a database connection to the SQLite database
+        specified by db_file
+    :param db_file: database file
+    :return: Connection object or None
+    """
+    conn = None
+    try:
+        conn = sqlite3.connect(database_path) 
+    except Error as e:
+        print(e)
 
-#     return conn
+    return conn
 
 
 PATH='/api/v1/time'
@@ -200,7 +200,7 @@ def exchangeInfo(pair):
         #print(t)
         selection1 = t.get('symbols')
         selection2=selection1[0].get('filters')
-        print(selection2)
+        #print(selection2)
         minNotional = selection2[2].get('minNotional')
         minAndMaxPrice = selection2[6]
         print('La valeur minimale a acheter est de ' + minNotional + ' tokens')
@@ -239,7 +239,7 @@ def createOrder(api_key, secret_key, direction, price, pair, orderType):
         raise BinanceException(status_code=r.status_code, data=r.json())
 
 
-createOrder(API_KEY, SECRET_KEY, "BUY", 16000, "BTCUSDT", "LIMIT")
+#createOrder(API_KEY, SECRET_KEY, "BUY", 16000, "BTCUSDT", "LIMIT")
 
 def cancelOrder(api_key, secret_key, pair, uuid):
     PATH = '/api/v3/order'
